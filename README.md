@@ -1,4 +1,4 @@
-[Book Store]([url](https://testplane-bookstore.website.yandexcloud.net/)) for Testplane examples
+[Book Store](https://testplane-bookstore.website.yandexcloud.net/) for Testplane examples
 
 ### Getting started
 1. nvm use
