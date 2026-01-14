@@ -1,67 +1,276 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  /* Primary colors (Purple gradient) */
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7e22ce;
+  --color-primary-800: #6b21a8;
+  --color-primary-900: #581c87;
+
+  /* Secondary colors (Neutral grays) */
+  --color-secondary-50: #f8fafc;
+  --color-secondary-100: #f1f5f9;
+  --color-secondary-200: #e2e8f0;
+  --color-secondary-300: #cbd5e1;
+  --color-secondary-400: #94a3b8;
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1e293b;
+  --color-secondary-900: #0f172a;
+
+  /* Accent colors (Pink gradient) */
+  --color-accent-50: #fdf4ff;
+  --color-accent-100: #fae8ff;
+  --color-accent-200: #f5d0fe;
+  --color-accent-300: #f0abfc;
+  --color-accent-400: #e879f9;
+  --color-accent-500: #d946ef;
+  --color-accent-600: #c026d3;
+  --color-accent-700: #a21caf;
+  --color-accent-800: #86198f;
+  --color-accent-900: #701a75;
+
+  /* Gray colors */
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f1f3f5;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd;
+  --color-gray-600: #6c757d;
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+
+  /* Utility colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Font families */
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Border radius */
+  --radius-tp: 0.5rem;
+
+  /* Box shadows */
+  --shadow-tp: 0 4px 6px -1px rgba(168, 85, 247, 0.1), 0 2px 4px -1px rgba(168, 85, 247, 0.06);
+}
 
 @layer base {
-    html {
-        @apply text-secondary-600;
-    }
+  html {
+    color: var(--color-secondary-600);
+  }
 
-    h1 {
-        @apply text-3xl font-bold text-secondary-700;
-    }
+  body {
+    background-color: #fafafa;
+  }
 
-    h2 {
-        @apply text-2xl font-bold text-secondary-700;
-    }
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-secondary-700);
+  }
 
-    h3 {
-        @apply text-xl font-semibold text-secondary-700;
-    }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-secondary-700);
+  }
 
-    a {
-        @apply text-primary-500 hover:text-primary-700 transition-colors duration-200;
-    }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-secondary-700);
+  }
+
+  a {
+    color: var(--color-primary-600);
+    transition:
+      color 0.2s,
+      text-decoration 0.2s;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+
+  a:active {
+    color: var(--color-primary-800);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: 0.125rem;
+  }
+
+  /* Input base styles */
+  input:not([type='checkbox']):not([type='radio']),
+  select,
+  textarea {
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+  }
+
+  input:not([type='checkbox']):not([type='radio']):disabled,
+  select:disabled,
+  textarea:disabled {
+    background-color: var(--color-gray-100);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Checkbox and radio styles */
+  input[type='checkbox'],
+  input[type='radio'] {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  input[type='checkbox']:focus,
+  input[type='radio']:focus {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  input[type='checkbox']:disabled,
+  input[type='radio']:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* Button base styles for all button-like elements */
+  button {
+    transition: all 0.2s ease-in-out;
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
 @layer components {
-    .btn {
-        @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-tp shadow-tp text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-400 transition-colors duration-200;
-    }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(168, 85, 247, 0.15);
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-accent-500) 100%);
+    transition: all 0.2s;
+  }
 
-    .btn-secondary {
-        @apply bg-white text-secondary-600 border-secondary-200 hover:bg-gray-50;
-    }
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(168, 85, 247, 0.25);
+  }
 
-    .card {
-        @apply bg-white rounded-tp shadow-tp overflow-hidden;
-    }
+  .btn:focus {
+    outline: none;
+    ring: 2px;
+    ring-offset: 2px;
+    ring-color: var(--color-primary-400);
+  }
 
-    .form-input {
-        @apply mt-1 block w-full rounded-tp border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-300;
-    }
+  .btn-secondary {
+    background: white;
+    color: var(--color-secondary-600);
+    border-color: var(--color-secondary-200);
+  }
 
-    .form-label {
-        @apply block text-sm font-medium text-secondary-600;
-    }
+  .btn-secondary:hover {
+    background-color: var(--color-gray-50);
+  }
 
-    .form-error {
-        @apply mt-1 text-sm text-danger;
-    }
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(168, 85, 247, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .card:active {
+    transform: translateY(0);
+  }
+
+  .form-input {
+    margin-top: 0.25rem;
+    display: block;
+    width: 100%;
+    border-radius: 0.5rem;
+    border-color: var(--color-gray-300);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    transition: all 0.2s;
+  }
+
+  .form-input:focus {
+    border-color: var(--color-primary-500);
+    ring-color: var(--color-primary-300);
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-secondary-700);
+  }
+
+  .form-error {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-danger);
+  }
 }
 
-/* Убираем стрелки для числовых полей ввода */
+/* Remove arrows for number input fields */
 @layer base {
+  /* Chrome, Safari, Edge, Opera */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-    /* Chrome, Safari, Edge, Opera */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 }

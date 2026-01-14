@@ -9,10 +9,10 @@ export const store = configureStore({
     cart: cartReducer,
     auth: authReducer,
   },
-  middleware: (getDefaultMiddleware) => 
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Игнорируем определенные пути в проверке на сериализуемость
+        // Ignore certain paths in serializability check
         ignoredActions: ['auth/login/fulfilled', 'auth/register/fulfilled'],
         ignoredPaths: ['auth.user'],
       },

@@ -73,7 +73,7 @@ export const Interactive = {
   args: {
     value: 3,
     interactive: true,
-    onChange: (rating) => console.log('New rating:', rating),
+    onChange: rating => console.log('New rating:', rating),
   },
 };
 
@@ -81,7 +81,7 @@ export const InteractiveWithoutValue = {
   args: {
     value: 0,
     interactive: true,
-    onChange: (rating) => console.log('New rating:', rating),
+    onChange: rating => console.log('New rating:', rating),
   },
 };
 

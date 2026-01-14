@@ -19,14 +19,21 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: false,
+    open: true,
   },
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]',
+      },
+    },
   },
   test: {
-    // Если нужно будет интегрировать с базовым vitest
+    // If needed to integrate with base vitest
     globals: true,
     environment: 'jsdom',
   },

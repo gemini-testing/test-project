@@ -24,7 +24,7 @@ const mockStore = configureStore({
 });
 
 // Decorator to wrap stories with Redux Provider and Router
-const withProviders = (Story) => (
+const withProviders = Story => (
   <Provider store={mockStore}>
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,3 @@
-// src/components/auth/LoginForm/LoginForm.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,36 +8,41 @@ import { login } from '../../../store/slices/authSlice';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
-const schema = yup.object({
-  email: yup.string().email('Invalid email format').required('Email is required'),
-  password: yup.string().required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
-}).required();
+const schema = yup
+  .object({
+    email: yup.string().email('Invalid email format').required('Email is required'),
+    password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+  })
+  .required();
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
       setLoginError('');
       setIsLoading(true);
-      
-      console.log('Login form submitted with data:', data); // Для отладки
-      
+
+      console.log('Login form submitted with data:', data); // For debugging
+
       const resultAction = await dispatch(login(data));
-      // Проверяем, был ли запрос успешным
+      // Check if the request was successful
       if (login.fulfilled.match(resultAction)) {
-        // Перенаправляем на главную страницу после успешного входа
+        // Redirect to the main page after successful login
         navigate('/');
       } else if (login.rejected.match(resultAction)) {
-        // Если запрос отклонен, получаем ошибку из payload
+        // If the request is rejected, get the error from payload
         setLoginError(resultAction.payload || 'Login failed. Please try again.');
       }
     } catch (error) {
@@ -50,35 +54,35 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" data-testid="login-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" data-testid="login-form" noValidate>
       {loginError && (
         <div className="p-3 bg-red-100 text-danger rounded" data-testid="login-error">
           {loginError}
         </div>
       )}
-      
+
       <div>
         <Input
           label="Email Address"
-          type="email"
+          type="text"
           placeholder="your@email.com"
-          {...register("email")}
+          {...register('email')}
           error={errors.email?.message}
           data-testid="email-input"
         />
       </div>
-      
+
       <div>
         <Input
           label="Password"
           type="password"
           placeholder="Your password"
-          {...register("password")}
+          {...register('password')}
           error={errors.password?.message}
           data-testid="password-input"
         />
       </div>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <input
@@ -91,21 +95,16 @@ const LoginForm = () => {
             Remember me
           </label>
         </div>
-        
+
         <div className="text-sm">
           <a href="#" className="text-primary-600 hover:text-primary-500" data-testid="forgot-password-link">
             Forgot your password?
           </a>
         </div>
       </div>
-      
+
       <div>
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isLoading}
-          data-testid="login-button"
-        >
+        <Button type="submit" className="w-full" disabled={isLoading} data-testid="login-button">
           {isLoading ? 'Signing in...' : 'Sign in'}
         </Button>
       </div>

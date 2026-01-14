@@ -1,66 +1,53 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Основные цвета TestPlane
         primary: {
-          50: '#e6f8fa',
-          100: '#ccf1f6',
-          200: '#99e3ed',
-          300: '#66d5e4',
-          400: '#33c7db',
-          500: '#00b9d2', // Основной бирюзовый цвет TestPlane
-          600: '#0094a8',
-          700: '#006f7e',
-          800: '#004a54',
-          900: '#00252a',
+          50: '#faf5ff',
+          100: '#f3e8ff',
+          200: '#e9d5ff',
+          300: '#d8b4fe',
+          400: '#c084fc',
+          500: '#a855f7',
+          600: '#9333ea',
+          700: '#7e22ce',
+          800: '#6b21a8',
+          900: '#581c87',
         },
         secondary: {
-          50: '#e6eaef',
-          100: '#ccd5df',
-          200: '#99abbe',
-          300: '#66829e',
-          400: '#33587d',
-          500: '#002e5d', // Основной темно-синий цвет TestPlane
-          600: '#00254a',
-          700: '#001c38',
-          800: '#001225',
-          900: '#000913',
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b',
+          600: '#475569',
+          700: '#334155',
+          800: '#1e293b',
+          900: '#0f172a',
         },
-        gray: {
-          50: '#f8f9fa',
-          100: '#f1f3f5',
-          200: '#e9ecef',
-          300: '#dee2e6',
-          400: '#ced4da',
-          500: '#adb5bd',
-          600: '#6c757d',
-          700: '#495057',
-          800: '#343a40',
-          900: '#212529',
+        accent: {
+          50: '#fdf4ff',
+          100: '#fae8ff',
+          200: '#f5d0fe',
+          300: '#f0abfc',
+          400: '#e879f9',
+          500: '#d946ef',
+          600: '#c026d3',
+          700: '#a21caf',
+          800: '#86198f',
+          900: '#701a75',
         },
-        success: '#49cc90', // Зеленый цвет для успешных действий (как в TestPlane)
-        warning: '#fca130', // Оранжевый цвет для предупреждений
-        danger: '#f93e3e',  // Красный цвет для ошибок/опасных действий
-      },
-      fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'], // TestPlane использует моноширинный шрифт для код-блоков
-      },
-      boxShadow: {
-        'tp': '0 4px 6px -1px rgba(0, 46, 93, 0.1), 0 2px 4px -1px rgba(0, 46, 93, 0.06)', // Тень в стиле TestPlane
-      },
-      borderRadius: {
-        'tp': '0.375rem', // Радиус скругления в стиле TestPlane
+        danger: '#ef4444',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
+  plugins: [require('@tailwindcss/forms')],
+  safelist: [
+    {
+      pattern: /^bg-gradient-/,
+    },
   ],
-}
+};
