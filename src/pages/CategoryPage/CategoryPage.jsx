@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchBooks, setFilter } from '../../store/slices/bookSlice';
@@ -8,35 +8,38 @@ const CategoryPage = () => {
   const { genre } = useParams();
   const dispatch = useDispatch();
   const { items, status, error } = useSelector(state => state.books);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  // Преобразуем параметр URL в корректный формат жанра
-  const formattedGenre = genre.charAt(0).toUpperCase() + genre.slice(1).toLowerCase();
-  
+
+  // Convert URL parameter to correct genre format
+  // Handle cases with hyphens (non-fiction -> Non-Fiction)
+  const formattedGenre = genre
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('-');
+
   useEffect(() => {
-    // Устанавливаем фильтр по жанру
+    // Set genre filter
     dispatch(setFilter({ genre: formattedGenre, search: '' }));
-    
-    // Загружаем книги с новым фильтром
-    setIsLoading(true);
-    dispatch(fetchBooks({ genre: formattedGenre }))
-      .finally(() => setIsLoading(false));
+
+    // Load books with new filter
+    dispatch(fetchBooks({ genre: formattedGenre }));
   }, [dispatch, formattedGenre]);
-  
+
   return (
     <div data-testid="category-page">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4 text-secondary-700">{formattedGenre} Books</h1>
-        <Link to="/" className="text-primary-500 hover:text-primary-600">&larr; Back to all books</Link>
+        <Link to="/" className="text-primary-500 hover:text-primary-600">
+          &larr; Back to all books
+        </Link>
       </div>
-      
+
       {status === 'failed' && (
         <div className="p-4 bg-red-100 text-danger rounded-tp mb-4" data-testid="error-message">
           {error || 'Failed to load books. Please try again later.'}
         </div>
       )}
-      
-      {isLoading ? (
+
+      {status === 'loading' ? (
         <div className="flex justify-center py-12" data-testid="loading-indicator">
           <div className="loader animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
         </div>
