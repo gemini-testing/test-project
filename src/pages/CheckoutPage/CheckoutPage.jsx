@@ -145,7 +145,7 @@ const CheckoutPage = () => {
     }
   };
 
-  if (items.length === 0) {
+  if (items.length === 0 && !location.pathname.includes("/checkout/success")) {
     navigate('/cart');
     return null;
   }
